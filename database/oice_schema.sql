@@ -33,7 +33,7 @@ CREATE TABLE `alembic_version` (
 
 LOCK TABLES `alembic_version` WRITE;
 /*!40000 ALTER TABLE `alembic_version` DISABLE KEYS */;
-INSERT INTO `alembic_version` VALUES ('7689849c5ede');
+INSERT INTO `alembic_version` VALUES ('5a75f1d14bfe');
 /*!40000 ALTER TABLE `alembic_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +183,7 @@ CREATE TABLE `attribute` (
   CONSTRAINT `attribute_ibfk_1` FOREIGN KEY (`attribute_definition_id`) REFERENCES `attribute_definition` (`id`),
   CONSTRAINT `attribute_ibfk_2` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
   CONSTRAINT `attribute_ibfk_3` FOREIGN KEY (`block_id`) REFERENCES `block` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,8 +251,17 @@ CREATE TABLE `block` (
   KEY `ks_position_idx` (`oice_id`,`position`),
   CONSTRAINT `block_ibfk_2` FOREIGN KEY (`macro_id`) REFERENCES `macro` (`id`),
   CONSTRAINT `block_ibfk_3` FOREIGN KEY (`oice_id`) REFERENCES `oice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `block`
+--
+
+LOCK TABLES `block` WRITE;
+/*!40000 ALTER TABLE `block` DISABLE KEYS */;
+/*!40000 ALTER TABLE `block` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `character`
@@ -446,7 +455,7 @@ CREATE TABLE `featured_oice` (
   PRIMARY KEY (`id`),
   KEY `oice_id` (`oice_id`),
   CONSTRAINT `featured_oice_ibfk_1` FOREIGN KEY (`oice_id`) REFERENCES `oice` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,6 +464,7 @@ CREATE TABLE `featured_oice` (
 
 LOCK TABLES `featured_oice` WRITE;
 /*!40000 ALTER TABLE `featured_oice` DISABLE KEYS */;
+INSERT INTO `featured_oice` VALUES (2,1055,0);
 /*!40000 ALTER TABLE `featured_oice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,10 +479,15 @@ CREATE TABLE `featured_story` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `story_id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
+  `language` varchar(5) NOT NULL DEFAULT 'zh-HK',
+  `tier` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `story_id` (`story_id`),
+  KEY `ix_featured_story_language` (`language`),
+  KEY `ix_featured_story_order` (`order`),
+  KEY `ix_featured_story_tier` (`tier`),
   CONSTRAINT `featured_story_ibfk_1` FOREIGN KEY (`story_id`) REFERENCES `story` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -481,6 +496,7 @@ CREATE TABLE `featured_story` (
 
 LOCK TABLES `featured_story` WRITE;
 /*!40000 ALTER TABLE `featured_story` DISABLE KEYS */;
+INSERT INTO `featured_story` VALUES (1,492,0,'zh-HK',0);
 /*!40000 ALTER TABLE `featured_story` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,8 +589,12 @@ CREATE TABLE `oice` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uuid` (`uuid`),
   KEY `story_id` (`story_id`),
+  KEY `ix_oice_is_deleted` (`is_deleted`),
+  KEY `ix_oice_language` (`language`),
+  KEY `oice_ordering_idx` (`id`,`order`),
+  KEY `oice_publicity_idx` (`sharing_option`,`state`),
   CONSTRAINT `oice_ibfk_2` FOREIGN KEY (`story_id`) REFERENCES `story` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1057 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1056 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -692,8 +712,11 @@ CREATE TABLE `story` (
   `hero_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `og_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=495 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  KEY `ix_story_is_deleted` (`is_deleted`),
+  KEY `ix_story_language` (`language`),
+  KEY `story_updated_at_idx` (`updated_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=493 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -845,7 +868,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'oice-dev','admin','2017-10-17 10:23:15','2016-04-20 07:03:30','2017-10-17 10:23:15',0,NULL,'','oice-dev','zh-HK',NULL,NULL,0,1,0x00000000,NULL,NULL,NULL,0,NULL,NULL,NULL,'','en',NULL);
+INSERT INTO `user` VALUES (1,'oice-dev','admin','2017-10-17 12:57:35','2016-04-20 07:03:30','2017-10-17 12:57:35',0,NULL,'Development account','oice-dev','zh-HK',NULL,NULL,0,1,0x00000000,NULL,NULL,NULL,0,NULL,NULL,NULL,'','en',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1069,7 +1092,7 @@ CREATE TABLE `user_story` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_story_ibfk_1` FOREIGN KEY (`story_id`) REFERENCES `story` (`id`),
   CONSTRAINT `user_story_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1128,4 +1151,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-17 18:28:23
+-- Dump completed on 2017-10-17 21:23:24
