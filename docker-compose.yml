@@ -59,9 +59,5 @@ services:
       dockerfile: Dockerfile
       args:
         - SRV_ENV=127.0.0.1
-        - NODE_ENV=DEBUG
-    command: yarn start
-    volumes:
-      - ./oice-web/src:/app/src
     ports:
      - "3000:3000"
