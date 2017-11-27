@@ -9,7 +9,7 @@ Oice-deployment README
 
 Intro
 -------------
-Oice project consists of the open source repos under MIT licence...
+Oice project consists of the open source repos under GPLv3 licence...
 - [oice-server](https://github.com/lakoo/oice-server/)
 - [oice-web](https://github.com/lakoo/oice-web/)
 
@@ -48,7 +48,7 @@ We use [Alembic](http://alembic.zzzcomputing.com/en/latest/) for oice-server dat
 
 In case of a database upgrade needed, just run
 
-- `docker-compose exec -ti oice-server alembic -c example.ini upgrade head`
+- `docker-compose exec oice-server alembic -c example.ini upgrade head`
 
 while the `oice-server` and mysql container is running
 
