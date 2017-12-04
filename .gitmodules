@@ -1,9 +1,9 @@
 [submodule "oice-server"]
 	path = oice-server
-	url = https://github.com/lakoo/oice-server
+	url = https://github.com/likecoin/oice-server
 [submodule "oice-web"]
 	path = oice-web
-	url = https://github.com/lakoo/oice-web
+	url = https://github.com/likecoin/oice-web
 [submodule "rqworker"]
 	path = rqworker
 	url = https://github.com/lakoo/Builder3
