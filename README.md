@@ -10,12 +10,12 @@ Oice-deployment README
 Intro
 -------------
 Oice project consists of the open source repos under GPLv3 licence...
-- [oice-server](https://github.com/lakoo/oice-server/)
-- [oice-web](https://github.com/lakoo/oice-web/)
+- [oice-server](https://github.com/likecoin/oice-server/)
+- [oice-web](https://github.com/likecoin/oice-web/)
 
 ... and 2 proprietary repos avalable for development use only
-- [Builder3](https://github.com/lakoo/Builder3/)
-- [o2engine](https://github.com/lakoo/oice-o2engine-dist/)
+- [Builder3](https://github.com/likecoin/Builder3/)
+- [o2engine](https://github.com/likecoin/oice-o2engine-dist/)
 
 Please check the respective licence files for terms and conditions
 

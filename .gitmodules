@@ -6,4 +6,4 @@
 	url = https://github.com/likecoin/oice-web
 [submodule "rqworker"]
 	path = rqworker
-	url = https://github.com/lakoo/Builder3
+	url = https://github.com/likecoin/Builder3
