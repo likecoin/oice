@@ -28,13 +28,13 @@ Setup
 Remeber to init all submodules first
 - `git submodule update --init --recursive`
 
-- General development (with prebuild oice-web image)
+### General development (with prebuild oice-web image)
 - `docker-compose build`
 - `docker-compose up -d`
 
 The SQL dump in [database](./database) will be imported the first time you run the mysql container
 
-- Web development (with webpack hotreload + mount volume)
+### Web development (with webpack hotreload + mount volume)
 
 For web development quick start, rename `oice-web/common/constants/key.example.js` to `key.js`, then
 - `docker-compose -f docker-compose.oice-web-dev.yml build`
